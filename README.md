@@ -31,7 +31,6 @@
 
 > Overall framework for target-domain prototype collection and CLIP adaptation. First, high-quality target-domain prototypes are retrieved through bi-granularity semantic classification. Subsequently, the matching costs between CLIP dense visual tokens and semantic categories are constrained to align with the retrieved target-domain prototypes, enabling CLIP to capture target-domain semantics.
 
-
 <img src="assets/KTCD.jpg" width="100%"/>
 
 > Overall framework for target-domain prototype collection and CLIP adaptation. First, high-quality target-domain prototypes are retrieved through bi-granularity semantic classification. Subsequently, the matching costs between CLIP dense visual tokens and semantic categories are constrained to align with the retrieved target-domain prototypes, enabling CLIP to capture target-domain semantics.
@@ -99,16 +98,14 @@ pip install -r requirements.txt
 ## Download Checkpoints
 Please download the pretrained weights for SAM, RemoteCLIP and DINO. Please place them in the corresponding directories.
 
-
-
 1. Download `sam_vit_h_4b8939.pth` checkpoints from [SAM's repo](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth) and put it into `./pretrained`.
 2. Download `RemoteCLIP-ViT-L-14.pt` checkpoints from [HF](https://huggingface.co/chendelong/RemoteCLIP/blob/main/RemoteCLIP-ViT-L-14.pt) and put it into `./pretrained`.
 3. Download `RemoteCLIP-ViT-B-32.pt` checkpoints from [HF](https://huggingface.co/chendelong/RemoteCLIP/resolve/main/RemoteCLIP-ViT-B-32.pt) and put it into `./pretrained`.
 4. Download `ViT-B-16.pt` checkpoints from [CLIP's repo](https://openaipublic.azureedge.net/clip/models/5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f/ViT-B-16.pt) and put it into `./pretrained`.
 5. Download `dino_vitbase8_pretrain.pth` checkpoints from [DINO's repo](https://dl.fbaipublicfiles.com/dino/dino_vitbase8_pretrain/dino_vitbase8_pretrain.pth) and put it into `./pretrained`.
  
-
-## Bi-granularity Domain Prototype Retrieval & Adaptation
+## Model Training & Inference
+### 1. Domain Prototype Retrieval & Adaptation (Model Training)
 ```python
 # 1. Download the WHU-CD dataset and replace `INPUT_PATHs` in prototype_retri_whu.py
 # 2. Download pretrained weights and install dependencies
@@ -118,9 +115,7 @@ python prototype_retri_whu.py # e.g., WHU-CD
 python taba_ada.py --config-file ./configs/TABA_WHU_ViT_B.yaml
 ```
 
-
-
-## Knowledge Transfer to CD (Model Evaluation)
+### 2. Knowledge Transfer to CD (Model Inference)
 
 ```python
 # Modify `dataset_root_path` in `test_WHU-CD.sh`
