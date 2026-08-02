@@ -39,7 +39,7 @@
 ## Results
 ### Unsupervised Binary Change Detection
 
-| Method | **[WHU](http://gpcv.whu.edu.cn/data/building_dataset.html)** |  |  |  | **[LEVIR](https://justchenhao.github.io/LEVIR/)** |  |  |  |
+| Method | **[WHU-CD](http://gpcv.whu.edu.cn/data/building_dataset.html)** |  |  |  | **[LEVIR-CD](https://justchenhao.github.io/LEVIR/)** |  |  |  |
 |:------|---:|---:|---:|---:|---:|---:|---:|---:|
 | | F1 | IoU | Rec | Pre | F1 | IoU | Rec | Pre |
 | PCA_KM | 14.33 | 7.72 | 55.05 | 8.24 | 9.96 | 5.24 | 39.50 | 5.70 |
