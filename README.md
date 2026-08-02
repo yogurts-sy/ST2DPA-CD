@@ -122,10 +122,10 @@ python taba_ada.py --config-file ./configs/TABA_WHU_ViT_B.yaml
 sh ./scripts/test_WHU-CD.sh
 ```
 ## Results Reproduce
-Download model checkpoints from [WHU-CD/model_0029999.pth](https://github.com/yogurts-sy/Seg2Change/blob/main/exp/CK/best.pth) and put it into `./Output_Ada/Reproduce/`.
+We provide trained weights for all four datasets for reproducing the results. Taking WHU-CD as an example, download model checkpoints from [WHU-CD/model_0029999.pth](https://github.com/yogurts-sy/Seg2Change/blob/main/exp/CK/best.pth) and put it into `./Output_Ada/Reproduce/`.
 ```python
 # 1. Modify `MODEL.WEIGHTS` in `test_WHU-CD.sh` with our trained weights
 # 2. Modify `dataset_root_path` in `test_WHU-CD.sh`
-sh ./scripts/test_WHU-CD.sh # e.g., WHU-CD
+sh ./scripts/test_WHU-CD.sh # reproduce WHU-CD results
 ```
 
