@@ -77,7 +77,7 @@ Please follow the version information provided in `requirements.txt`. The instal
 # 1. Python version and Conda environment setup
 conda create -n UDA-CD python=3.8.20
 
-# 2. torch, torchvision, torchaudio, xformers
+# 2. Install torch, torchvision, torchaudio
 pip install torch==2.3.0 torchvision==0.18.0 torchaudio==2.3.0 --index-url https://download.pytorch.org/whl/cu118
 
 # 3. mmcv
@@ -91,19 +91,25 @@ mim install mmcv==2.2.0
 #     f'MMCV=={mmcv.__version__} is used but incompatible. ' \\
 #     f'Please install mmcv>=2.0.0rc4.'
 
-# 5. other dependencies
+# 5. Other dependencies
 pip install -r requirements.txt
 ```
 
-## Download Checkpoints
+## Download Checkpoints & Datasets
 Please download the pretrained weights for SAM, RemoteCLIP and DINO. Please place them in the corresponding directories.
 
-1. Download `sam_vit_h_4b8939.pth` checkpoints from [SAM's repo](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth) and put it into `./pretrained`.
-2. Download `RemoteCLIP-ViT-L-14.pt` checkpoints from [HF](https://huggingface.co/chendelong/RemoteCLIP/blob/main/RemoteCLIP-ViT-L-14.pt) and put it into `./pretrained`.
-3. Download `RemoteCLIP-ViT-B-32.pt` checkpoints from [HF](https://huggingface.co/chendelong/RemoteCLIP/resolve/main/RemoteCLIP-ViT-B-32.pt) and put it into `./pretrained`.
-4. Download `ViT-B-16.pt` checkpoints from [CLIP's repo](https://openaipublic.azureedge.net/clip/models/5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f/ViT-B-16.pt) and put it into `./pretrained`.
-5. Download `dino_vitbase8_pretrain.pth` checkpoints from [DINO's repo](https://dl.fbaipublicfiles.com/dino/dino_vitbase8_pretrain/dino_vitbase8_pretrain.pth) and put it into `./pretrained`.
- 
+1. Download `sam_vit_h_4b8939.pth` checkpoints from [SAM's repo](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth) and put it into `./pretrained/`.
+2. Download `RemoteCLIP-ViT-L-14.pt` checkpoints from [HF](https://huggingface.co/chendelong/RemoteCLIP/blob/main/RemoteCLIP-ViT-L-14.pt) and put it into `./pretrained/`.
+3. Download `RemoteCLIP-ViT-B-32.pt` checkpoints from [HF](https://huggingface.co/chendelong/RemoteCLIP/resolve/main/RemoteCLIP-ViT-B-32.pt) and put it into `./pretrained/`.
+4. Download `ViT-B-16.pt` checkpoints from [CLIP's repo](https://openaipublic.azureedge.net/clip/models/5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f/ViT-B-16.pt) and put it into `./pretrained/`.
+5. Download `dino_vitbase8_pretrain.pth` checkpoints from [DINO's repo](https://dl.fbaipublicfiles.com/dino/dino_vitbase8_pretrain/dino_vitbase8_pretrain.pth) and put it into `./pretrained/`.
+
+We include the following dataset configurations in this repo: 
+1) `Building Change Detection`: [WHU-CD](http://gpcv.whu.edu.cn/data/building_dataset.html), [LEVIR-CD](https://justchenhao.github.io/LEVIR/)
+2) `Land-Cover Change Detection`: [DSIFN](https://github.com/GeoZcx/A-deeply-supervised-image-fusion-network-for-change-detection-in-remote-sensing-images/tree/master/dataset), [CLCD](https://github.com/liumency/CropLand-CD)
+
+Please download the datasets for preparation. We also provide processed evaluation datasets, in [UCD_Benchmark.zip](https://pan.baidu.com/s/1E9rYpQDidek_qhx3yD1WGA?pwd=5egw).
+
 ## Model Training & Inference
 ### 1. Domain Prototype Retrieval & Adaptation (Model Training)
 ```python
@@ -118,11 +124,11 @@ python taba_ada.py --config-file ./configs/TABA_WHU_ViT_B.yaml
 ### 2. Knowledge Transfer to CD (Model Inference)
 
 ```python
-# Modify `dataset_root_path` in `test_WHU-CD.sh`
+# 1. Modify `dataset_root_path` in `test_WHU-CD.sh`
 sh ./scripts/test_WHU-CD.sh
 ```
 ## Results Reproduce
-We provide trained weights for all four datasets for reproducing the results. Taking WHU-CD as an example, download model checkpoints from [WHU-CD/model_0029999.pth](https://github.com/yogurts-sy/Seg2Change/blob/main/exp/CK/best.pth) and put it into `./Output_Ada/Reproduce/`.
+We provide trained weights for all four datasets for reproducing the results. Taking `WHU-CD` as an example, download trained model weights from [checkpoints](https://github.com/yogurts-sy/Seg2Change/blob/main/exp/CK/best.pth) and put it into `./Output_Ada/Reproduce/`.
 ```python
 # 1. Modify `MODEL.WEIGHTS` in `test_WHU-CD.sh` with our trained weights
 # 2. Modify `dataset_root_path` in `test_WHU-CD.sh`
