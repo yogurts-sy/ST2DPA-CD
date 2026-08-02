@@ -35,12 +35,12 @@
 
 > Overall framework for target-domain prototype collection and CLIP adaptation. First, high-quality target-domain prototypes are retrieved through bi-granularity semantic classification. Subsequently, the matching costs between CLIP dense visual tokens and semantic categories are constrained to align with the retrieved target-domain prototypes, enabling CLIP to capture target-domain semantics.
 
-## Results
+## Main Results
 ### Unsupervised Binary Change Detection
 
 | Method | **[WHU](http://gpcv.whu.edu.cn/data/building_dataset.html)** |  |  |  | **[LEVIR](https://justchenhao.github.io/LEVIR/)** |  |  |  |
 |:------|---:|---:|---:|---:|---:|---:|---:|---:|
-| | F1 | IoU | Rec | Pre | F1 | IoU | Rec | Pre |
+| | **F1** | **IoU** | **Rec** | **Pre** | **F1** | **IoU** | **Rec** | **Pre** |
 | PCA_KM | 14.33 | 7.72 | 55.05 | 8.24 | 9.96 | 5.24 | 39.50 | 5.70 |
 | CVA | 7.17 | 3.72 | 62.03 | 3.81 | 9.27 | 4.86 | 61.27 | 5.01 |
 | IRMAD | 16.32 | 8.89 | 21.33 | 13.22 | 14.21 | 7.65 | 18.22 | 11.65 |
@@ -56,7 +56,7 @@
 
 | Method | **[DSIFN](https://github.com/GeoZcx/A-deeply-supervised-image-fusion-network-for-change-detection-in-remote-sensing-images/tree/master/dataset)** |  |  |  | **[CLCD](https://github.com/liumency/CropLand-CD)** |  |  |  |
 |:------|---:|---:|---:|---:|---:|---:|---:|---:|
-| | F1 | IoU | Rec | Pre | F1 | IoU | Rec | Pre |
+| | **F1** | **IoU** | **Rec** | **Pre** | **F1** | **IoU** | **Rec** | **Pre** |
 | PCA_KM | 35.48 | 21.57 | 45.35 | 29.14 | 18.42 | 10.14 | 40.76 | 11.90 |
 | CVA | 27.88 | 16.20 | 66.29 | 17.65 | 13.39 | 7.17 | 60.42 | 7.53 |
 | IRMAD | 16.76 | 9.15 | 10.67 | 39.09 | 27.99 | 16.27 | 28.70 | 27.32 |
