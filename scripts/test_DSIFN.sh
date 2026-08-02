@@ -1,6 +1,5 @@
 python taba_ktcd_gen.py \
 --save_path ./Output_CD/DSIFN \
---from_A_to_B False \
 --from_B_to_A True \
 --target_classes 1 6 \
 --thres_base 60 \

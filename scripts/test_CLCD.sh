@@ -1,6 +1,5 @@
 python taba_ktcd_gen.py \
 --save_path ./Output_CD/CLCD \
---from_A_to_B False \
 --from_B_to_A True \
 --target_classes 0 1 3 5 \
 --thres_base 50 \

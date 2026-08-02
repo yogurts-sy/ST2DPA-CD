@@ -753,8 +753,8 @@ def unsupervised_change_detection(identifier_model, img1_path, img2_path, label_
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='UDA-CD')
     parser.add_argument('--save_path', type=str, default='/data2/suyou/Codes2/UDA-CD/Output_KTCD', help='path to save evaluation results')
-    parser.add_argument('--from_A_to_B', type=bool, default=True, help='inference from time t1 to time t2')
-    parser.add_argument('--from_B_to_A', type=bool, default=True, help='inference from time t2 to time t1')
+    parser.add_argument('--from_A_to_B', type=bool, default=False, help='inference from time t1 to time t2')
+    parser.add_argument('--from_B_to_A', type=bool, default=False, help='inference from time t2 to time t1')
     parser.add_argument('--target_classes', type=int, nargs='+', default=[1], help='the list of target classes')
     parser.add_argument('--thres_base', type=int, default=70, help='change vector threshold')
     parser.add_argument('--test_dataset', type=str, default='WHU-CD', help='evaluation dataset: WHU-CD, LEVIR-CD, DSIFN, CLCD')
@@ -805,18 +805,6 @@ if __name__ == '__main__':
             pred_iou_thresh=0.0,
             stability_score_thresh=0.5,
             box_nms_thresh=0.7,
-        )
-
-    elif DATASET == 'SECOND':
-        mask_generator = SamAutomaticMaskGenerator(
-            model=sam,
-            points_per_side=48,
-            points_per_batch=224,
-            pred_iou_thresh=0.5,
-            stability_score_thresh=0.95,
-            stability_score_offset=0.9,
-            box_nms_thresh=0.3,
-            min_mask_region_area=0,
         )
 
     else:
