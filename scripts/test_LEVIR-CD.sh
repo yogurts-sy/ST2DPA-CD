@@ -1,0 +1,10 @@
+python taba_ktcd_gen.py \
+--save_path ./Output_CD/LEVIR-CD \
+--from_A_to_B False \
+--from_B_to_A True \
+--target_classes 1 \
+--thres_base 70 \
+--test_dataset LEVIR-CD \
+--dataset_root_path /data2/suyou/Codes/datasets/LEVIR-CD-1024/test/ \
+--config-file ./configs/TABA_LEVIR_ViT_B.yaml \
+--opts MODEL.WEIGHTS ./Output_Ada/LEVIR-CD/model_0029999.pth

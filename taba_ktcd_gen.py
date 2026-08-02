@@ -2,7 +2,7 @@ import os
 os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 os.environ["HF_HUB_ENABLE_HF_MIRROR"] = "true"
 os.environ["HF_HOME"] = "/data2/suyou/Codes/UDA-CD/HF_HOME"
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ["CUDA_VISIBLE_DEVICES"] = "5"
 import numpy as np
 import torch
 import matplotlib.pyplot as plt
@@ -494,9 +494,9 @@ def get_sam_feat(sam_predictor, tmp_img):
     return sam_enc_feats
 
 @torch.no_grad()
-def extract_dense_prediction(identifier_model, img, img_name):
+def extract_dense_prediction(identifier_model, img, img_name, clsn):
     seg_mask = np.zeros((img.shape[0], img.shape[1]))
-    sem_segs = np.zeros((5, img.shape[0], img.shape[1]))
+    sem_segs = np.zeros((clsn, img.shape[0], img.shape[1]))
     dst_v = torch.zeros((768, img.shape[0], img.shape[1])).cuda()
 
     patch_size = 256
@@ -624,6 +624,7 @@ def unsupervised_change_detection(identifier_model, img1_path, img2_path, label_
     LOGGER = kwargs.get('logger')
     CHANGE_HEAD = kwargs.get('change_head')
     IMG_NAME = kwargs.get('img_name')
+    CLSN = kwargs.get('clsn')
 
     img1 = read_image(img1_path, format="BGR")
     img2 = read_image(img2_path, format="BGR")
@@ -657,8 +658,8 @@ def unsupervised_change_detection(identifier_model, img1_path, img2_path, label_
     sam_enc_feats1 = get_sam_feat(mask_generator.predictor, tmp_img1)
     sam_enc_feats2 = get_sam_feat(mask_generator.predictor, tmp_img2)
 
-    seg_pred1, dst_v1, sem_segs1 = extract_dense_prediction(identifier_model, img1, os.path.splitext(IMG_NAME)[0])
-    seg_pred2, dst_v2, sem_segs2 = extract_dense_prediction(identifier_model, img2, os.path.splitext(IMG_NAME)[0])    
+    seg_pred1, dst_v1, sem_segs1 = extract_dense_prediction(identifier_model, img1, os.path.splitext(IMG_NAME)[0], CLSN)
+    seg_pred2, dst_v2, sem_segs2 = extract_dense_prediction(identifier_model, img2, os.path.splitext(IMG_NAME)[0], CLSN)    
 
     for target_class in TARGET_CLASSES:
         target_mask1[seg_pred1 == target_class] = 1
@@ -838,6 +839,7 @@ if __name__ == '__main__':
         T2_NAME = 'B'
         MASK_NAME = 'label'
         IMG_SIZE = 1024
+        CLSN = 5
 
     elif DATASET == 'DSIFN':
 
@@ -845,6 +847,7 @@ if __name__ == '__main__':
         T2_NAME = 't2'
         MASK_NAME = 'mask'
         IMG_SIZE = 512
+        CLSN = 7
 
     elif DATASET == 'CLCD':
 
@@ -852,13 +855,7 @@ if __name__ == '__main__':
         T2_NAME = 'time2'
         MASK_NAME = 'label'
         IMG_SIZE = 512
-
-    elif DATASET == 'SECOND':
-
-        T1_NAME = 'T1'
-        T2_NAME = 'T2'
-        MASK_NAME = 'GT_T1'
-        IMG_SIZE = 512
+        CLSN = 6
 
     for f in os.listdir(os.path.join(INPUT_DIR, T1_NAME)):
         if str(f).endswith(".png") or str(f).endswith(".jpg"):
@@ -890,7 +887,7 @@ if __name__ == '__main__':
 
         unsupervised_change_detection(model, img1_path, img2_path, label_path, evaluator_test, dataset=DATASET, save_path=SAVE_DIR, 
                                         target_classes=TARGET_CLASSES, thres_base=THRES_BASE, from_A_to_B=FROM_A_TO_B, from_B_to_A=FROM_B_TO_A, 
-                                        logger=logger, change_head=CHANGE_HEAD, img_name=img_name)
+                                        logger=logger, change_head=CHANGE_HEAD, img_name=img_name, clsn=CLSN)
 
     IoU = evaluator_test.Intersection_over_Union()[1]
     ACC = evaluator_test.OA()[1]
