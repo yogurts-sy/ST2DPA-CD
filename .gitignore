@@ -1,0 +1,14 @@
+__pycache__
+.vscode
+.idea
+.demo_seg
+.Domain-Seg
+.HF_HOME
+.Output_Ada 
+.Output_CD
+.Output_Seg
+.output_vis_sam_feat
+.pretrained
+.pretrained2
+.torch_hub
+.vis_cost_out_WHU

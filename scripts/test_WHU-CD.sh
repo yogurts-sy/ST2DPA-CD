@@ -1,0 +1,10 @@
+python taba_ktcd_gen.py \
+--save_path ./Output_CD/WHU-CD \
+--from_A_to_B True \
+--from_B_to_A True \
+--target_classes 1 \
+--thres_base 60 \
+--test_dataset WHU-CD \
+--dataset_root_path /data2/suyou/Codes/datasets/WHU-CD-1024/test/ \
+--config-file ./configs/TABA_WHU_ViT_B.yaml \
+--opts MODEL.WEIGHTS ./Output_Ada/WHU-CD/model_0029999.pth

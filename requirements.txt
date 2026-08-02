@@ -1,0 +1,26 @@
+# torch==2.3.0+cu118
+# torchvision==0.18.0+cu118
+# torchaudio==2.3.0
+einops==0.8.1
+fsspec==2024.9.0
+ftfy==6.0.1
+open-clip-torch==2.24.0
+matplotlib==3.7.5
+# mmcv==2.2.0
+mmengine==0.10.7
+mmsegmentation==1.2.2
+numpy==1.24.4
+opencv-python==4.13.0.92
+opencv-python-headless==4.13.0.92
+pillow==10.3.0
+pycocotools==2.0.7
+regex==2024.11.6
+safetensors==0.5.3
+scipy==1.10.1
+scikit-image==0.21.0
+timm==1.0.15
+tqdm==4.67.3
+setuptools==60.2.0
+transformers==4.46.3
+imageio==2.34.1
+detectron2==0.6
