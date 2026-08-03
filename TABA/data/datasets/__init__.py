@@ -18,5 +18,4 @@ from . import (
     register_myiSAID,
     register_CLCD,
     register_DSIFN,
-    register_SECOND,
 )

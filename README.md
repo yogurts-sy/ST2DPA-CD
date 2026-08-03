@@ -76,6 +76,7 @@ Please follow the version information provided in `requirements.txt`. The instal
 ```bash
 # 1. Python version and Conda environment setup
 conda create -n UDA-CD python=3.8.20
+conda activate UDA-CD
 
 # 2. Install torch, torchvision, torchaudio
 pip install torch==2.3.0 torchvision==0.18.0 torchaudio==2.3.0 --index-url https://download.pytorch.org/whl/cu118
@@ -93,6 +94,11 @@ mim install mmcv==2.2.0
 
 # 5. Other dependencies
 pip install -r requirements.txt
+
+# 6. detectron2
+unzip detectron2.zip
+cd detectron2
+pip install .
 ```
 
 ## Download Checkpoints & Datasets
@@ -102,13 +108,14 @@ Please download the pretrained weights for SAM, RemoteCLIP and DINO. Please plac
 2. Download `RemoteCLIP-ViT-L-14.pt` checkpoints from [HF](https://huggingface.co/chendelong/RemoteCLIP/blob/main/RemoteCLIP-ViT-L-14.pt) and put it into `./pretrained/`.
 3. Download `RemoteCLIP-ViT-B-32.pt` checkpoints from [HF](https://huggingface.co/chendelong/RemoteCLIP/resolve/main/RemoteCLIP-ViT-B-32.pt) and put it into `./pretrained/`.
 4. Download `ViT-B-16.pt` checkpoints from [CLIP's repo](https://openaipublic.azureedge.net/clip/models/5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f/ViT-B-16.pt) and put it into `./pretrained/`.
-5. Download `dino_vitbase8_pretrain.pth` checkpoints from [DINO's repo](https://dl.fbaipublicfiles.com/dino/dino_vitbase8_pretrain/dino_vitbase8_pretrain.pth) and put it into `./pretrained/`.
+5. Download `ViT-B-32.pt` checkpoints from [CLIP's repo](https://openaipublic.azureedge.net/clip/models/40d365715913c9da98579312b702a82c18be219cc2a73407c4526f58eba950af/ViT-B-32.pt) and put it into `./pretrained/`.
+6. Download `dino_vitbase8_pretrain.pth` checkpoints from [DINO's repo](https://dl.fbaipublicfiles.com/dino/dino_vitbase8_pretrain/dino_vitbase8_pretrain.pth) and put it into `./pretrained/`.
 
 We include the following dataset configurations in this repo: 
 1) `Building Change Detection`: [WHU-CD](http://gpcv.whu.edu.cn/data/building_dataset.html), [LEVIR-CD](https://justchenhao.github.io/LEVIR/)
 2) `Land-Cover Change Detection`: [DSIFN](https://github.com/GeoZcx/A-deeply-supervised-image-fusion-network-for-change-detection-in-remote-sensing-images/tree/master/dataset), [CLCD](https://github.com/liumency/CropLand-CD)
 
-Please download the datasets for preparation. We also provide processed evaluation datasets, in [UCD_Benchmark.zip](https://pan.baidu.com/s/1E9rYpQDidek_qhx3yD1WGA?pwd=5egw).
+Please download the datasets for preparation. We also provide processed evaluation datasets, in [UCD_Benchmark](https://pan.baidu.com/s/1fPuy18vvezy92C0yyGxCrw?pwd=d73k).
 
 ## Model Training & Inference
 ### 1. Domain Prototype Retrieval & Adaptation (Model Training)
@@ -128,7 +135,7 @@ python taba_ada.py --config-file ./configs/TABA_WHU_ViT_B.yaml
 sh ./scripts/test_WHU-CD.sh
 ```
 ## Results Reproduce
-We also provide trained weights for all four datasets for reproducing the results. Taking `WHU-CD` as an example, download trained model weights from [checkpoints](https://github.com/yogurts-sy/Seg2Change/blob/main/exp/CK/best.pth) and put it into `./Output_Ada/Reproduce/`.
+We also provide trained weights for all four datasets for reproducing the results. Taking `WHU-CD` as an example, download trained model weights from [checkpoints](https://pan.baidu.com/s/1nuvndmU8SuxAe0wierdviQ?pwd=7ttv) and put it into `./Output_Ada/WHU-CD/`.
 ```python
 # 1. Modify `MODEL.WEIGHTS` in `test_WHU-CD.sh` with our trained weights
 # 2. Modify `dataset_root_path` in `test_WHU-CD.sh`

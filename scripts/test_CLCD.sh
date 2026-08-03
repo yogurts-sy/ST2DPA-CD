@@ -4,6 +4,6 @@ python taba_ktcd_gen.py \
 --target_classes 0 1 3 5 \
 --thres_base 50 \
 --test_dataset CLCD \
---dataset_root_path /data2/suyou/Codes/datasets/CLCD/test/ \
+--dataset_root_path ./UCD_Benchmark/CLCD/test/ \
 --config-file ./configs/TABA_CLCD_ViT_B.yaml \
 --opts MODEL.WEIGHTS ./Output_Ada/CLCD/model_0029999.pth

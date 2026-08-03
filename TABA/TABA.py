@@ -396,10 +396,7 @@ class TABA(nn.Module):
         else:
             dino_feat_input, dino_feat_guidance = None, None
 
-        if self.training:
-            files_name = [x['file_name'] for x in batched_inputs]
-        else:
-            files_name = [x['img_name'] for x in batched_inputs]
+        files_name = [f'img_{str(i)}' for i, x in enumerate(batched_inputs)]
         outputs = self.sem_seg_head(files_name,
         clip_features_input, 
         dino_feat_input,

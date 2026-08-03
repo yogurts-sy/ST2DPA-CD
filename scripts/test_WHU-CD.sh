@@ -5,6 +5,6 @@ python taba_ktcd_gen.py \
 --target_classes 1 \
 --thres_base 60 \
 --test_dataset WHU-CD \
---dataset_root_path /data2/suyou/Codes/datasets/WHU-CD-1024/test/ \
+--dataset_root_path ./UCD_Benchmark/WHU-CD-1024/test/ \
 --config-file ./configs/TABA_WHU_ViT_B.yaml \
 --opts MODEL.WEIGHTS ./Output_Ada/WHU-CD/model_0029999.pth

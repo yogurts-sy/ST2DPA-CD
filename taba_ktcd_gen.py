@@ -1,7 +1,7 @@
 import os
 os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 os.environ["HF_HUB_ENABLE_HF_MIRROR"] = "true"
-os.environ["HF_HOME"] = "/data2/suyou/Codes/UDA-CD/HF_HOME"
+os.environ["HF_HOME"] = "./HF_HOME"
 os.environ["CUDA_VISIBLE_DEVICES"] = "5"
 import numpy as np
 import torch
@@ -752,18 +752,18 @@ def unsupervised_change_detection(identifier_model, img1_path, img2_path, label_
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='UDA-CD')
-    parser.add_argument('--save_path', type=str, default='/data2/suyou/Codes2/UDA-CD/Output_KTCD', help='path to save evaluation results')
-    parser.add_argument('--from_A_to_B', type=bool, default=False, help='inference from time t1 to time t2')
-    parser.add_argument('--from_B_to_A', type=bool, default=False, help='inference from time t2 to time t1')
+    parser.add_argument('--save_path', type=str, default='./Output_CD', help='path to save evaluation results')
+    parser.add_argument('--from_A_to_B', type=bool, default=True, help='inference from time t1 to time t2')
+    parser.add_argument('--from_B_to_A', type=bool, default=True, help='inference from time t2 to time t1')
     parser.add_argument('--target_classes', type=int, nargs='+', default=[1], help='the list of target classes')
-    parser.add_argument('--thres_base', type=int, default=70, help='change vector threshold')
+    parser.add_argument('--thres_base', type=int, default=60, help='change vector threshold')
     parser.add_argument('--test_dataset', type=str, default='WHU-CD', help='evaluation dataset: WHU-CD, LEVIR-CD, DSIFN, CLCD')
     parser.add_argument('--change_head', type=str, default='KTCD', help='change head: KTCD, PWD, SD, LM, LMD')
     parser.add_argument('--sam_root_path', type=str, default='./pretrained/sam_vit_h_4b8939.pth', help='segment anything model root path')
-    parser.add_argument('--dataset_root_path', type=str, default='/data2/suyou/Codes/datasets/WHU-CD-1024/test/', help='evaluation dataset root path')
+    parser.add_argument('--dataset_root_path', type=str, default='./UCD_Benchmark/WHU-CD-1024/test/', help='evaluation dataset root path')
     parser.add_argument("--config-file", default='./configs/TABA_WHU_ViT_B.yaml', metavar="FILE", help="path to config file",)
     parser.add_argument("--confidence-threshold", type=float, default=0.5, help="Minimum score for instance predictions to be shown",)
-    parser.add_argument("--opts", help="Modify config options using the command-line 'KEY VALUE' pairs", default=["MODEL.WEIGHTS", './Output_Ada/Abalation/Attention/WHU_TABA_attn/model_0029999.pth'], nargs=argparse.REMAINDER,)
+    parser.add_argument("--opts", help="Modify config options using the command-line 'KEY VALUE' pairs", default=["MODEL.WEIGHTS", './Output_Ada/WHU-CD/model_0029999.pth'], nargs=argparse.REMAINDER,)
 
     args = parser.parse_args()
 

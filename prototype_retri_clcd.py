@@ -1,7 +1,7 @@
 import os
 os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 os.environ["HF_HUB_ENABLE_HF_MIRROR"] = "true"
-os.environ["HF_HOME"] = "/data2/suyou/Codes2/UDA-CD/HF_HOME"
+os.environ["HF_HOME"] = "./HF_HOME"
 os.environ["CUDA_VISIBLE_DEVICES"] = "6"
 import numpy as np
 import torch
@@ -346,7 +346,7 @@ def show_results2(image, seg_pred, seg_logit, name_list, add_bg=False, vis_thres
 if __name__ == '__main__':
     SAVE_PATH = './Output_Seg/CLCD'
 
-    INPUT_PATHs = ['/data2/suyou/Codes/datasets/CLCD/train/time1/', '/data2/suyou/Codes/datasets/CLCD/train/time2/']
+    INPUT_PATHs = ['./UCD_Benchmark/CLCD/train/time1/', './UCD_Benchmark/CLCD/train/time2/']
     SPLITs = ['TRAIN_A', 'TRAIN_B']
 
     device = "cuda"

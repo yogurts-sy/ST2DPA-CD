@@ -1,8 +1,8 @@
 import os
 os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 os.environ["HF_HUB_ENABLE_HF_MIRROR"] = "true"
-os.environ["HF_HOME"] = "/data2/suyou/Codes2/UDA-CD/HF_HOME"
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+os.environ["HF_HOME"] = "./HF_HOME"
+os.environ["CUDA_VISIBLE_DEVICES"] = "6"
 import numpy as np
 import torch
 import matplotlib.pyplot as plt
@@ -331,10 +331,13 @@ if __name__ == '__main__':
 
     SAVE_PATH = './Output_Seg/WHU-CD/' + CLIP_TYPE + '/' + MODEL_TYPE
 
-    INPUT_PATHs = [
-            '/data2/suyou/Codes/datasets/WHU-CD-1024/train/A/',
-            '/data2/suyou/Codes/datasets/WHU-CD-1024/train/B/']
-    SPLITs = ['TRAIN_A', 'TRAIN_B']
+    # INPUT_PATHs = [
+    #         './UCD_Benchmark/WHU-CD-1024/train/A/',
+    #         './UCD_Benchmark/WHU-CD-1024/train/B/']
+    # SPLITs = ['TRAIN_A', 'TRAIN_B']
+
+    INPUT_PATHs = ['./UCD_Benchmark/WHU-CD-1024/train/B/']
+    SPLITs = ['TRAIN_B']
 
     device = "cuda"
     SAVE_FIGS = False
