@@ -11,7 +11,7 @@
     <a href='' target='_blank'>Yonghong Song</a><sup>✉1</sup>&emsp;
     <a href='' target='_blank'>Jiaao Huang</a><sup>1</sup>&emsp;
     <a href='' target='_blank'>Yi Liu</a><sup>1</sup>&emsp;
-    <a href='' target='_blank'>Jingtao Chen</a><sup>2</sup>&emsp;
+    <a href='' target='_blank'>Xiaoyun Yang</a><sup>2</sup>&emsp;
     <a href='' target='_blank'>Jingqi Chen</a><sup>1</sup>&emsp;
     <a href='' target='_blank'>Zehan Wen</a><sup>1</sup>&emsp;
 </div>
