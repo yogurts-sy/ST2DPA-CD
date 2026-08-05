@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1>Exploring CLIP Dense Semantic Priors for Source-Free Unsupervised Domain Adaptation in Remote Sensing Change Detection</h1>
+<h1>Exploring CLIP Semantic Priors for Unsupervised Domain Adaptation in Remote Sensing Change Detection</h1>
 
 <div>
     <strong>From target-domain semantic adaptation to change estimation</strong>
