@@ -46,42 +46,42 @@
 |:------|:------|---:|---:|---:|---:|---:|---:|---:|---:|
 | | | **F1** | **IoU** | **Rec.** | **Pre.** | **F1** | **IoU** | **Rec.** | **Pre.** |
 | DCVA | / | 20.55 | 11.45 | 59.96 | 12.40 | 13.85 | 7.44 | 75.50 | 7.63 |
-| Inst-CEG | APE | 62.54 | 45.49 | 73.62 | 54.35 | 63.29 | 46.30 | <u>81.96</u> | 51.55 |
+| Inst-CEG | APE | 62.54 | 45.49 | 73.62 | 54.35 | 63.29 | 46.30 | <ins>81.96</ins> | 51.55 |
 | AnyChange | SAM | 28.13 | 16.37 | **96.16** | 16.48 | 32.68 | 19.53 | 81.06 | 20.46 |
 | UCD-SCM | FastSAM | 32.13 | 19.14 | 76.81 | 20.31 | 32.36 | 19.30 | 50.21 | 23.87 |
-| BiSAM-CD | SAM2 | 41.26 | 25.99 | <u>94.88</u> | 26.36 | 53.79 | 36.79 | **93.35** | 37.78 |
+| BiSAM-CD | SAM2 | 41.26 | 25.99 | <ins>94.88</ins> | 26.36 | 53.79 | 36.79 | **93.35** | 37.78 |
 | STU-SAMI | SAM | 33.15 | 19.87 | 69.94 | 21.72 | 33.50 | 20.12 | 64.19 | 22.66 |
 | AdaptOVCD | DGTRS-CLIP | 76.53 | 61.99 | 72.85 | 80.60 | 68.00 | 51.52 | 74.10 | 62.83 |
-| OpenDPR | APE | 79.15 | 65.50 | 75.41 | <u>83.28</u> | 61.90 | 44.82 | 74.74 | 52.83 |
+| OpenDPR | APE | 79.15 | 65.50 | 75.41 | <ins>83.28</ins> | 61.90 | 44.82 | 74.74 | 52.83 |
 | UniVCD (SAM2) | SAM2 | 76.50 | 61.90 | 84.10 | 70.20 | 70.70 | 54.70 | 77.90 | 64.70 |
-| UniVCD (SAM3) | SAM3 | <u>79.50</u> | <u>66.00</u> | 73.30 | **86.80** | <u>72.30</u> | <u>56.70</u> | 65.10 | **81.40** |
+| UniVCD (SAM3) | SAM3 | <ins>79.50</ins> | <ins>66.00</ins> | 73.30 | **86.80** | <ins>72.30</ins> | <ins>56.70</ins> | 65.10 | **81.40** |
 | DynamEarth (MCI) | SegEarth-OV | 57.35 | 40.20 | 63.43 | 52.33 | 46.43 | 30.23 | 73.33 | 33.97 |
 | DynamEarth (IMC) | APE | 75.85 | 61.09 | 73.96 | 77.84 | 69.70 | 53.50 | 78.09 | 62.94 |
-| UCD-SCM† | RCLIP | 68.31 | 51.87 | 87.45 | 56.04 | 66.14 | 49.41 | 64.44 | <u>67.93</u> |
+| UCD-SCM† | RCLIP | 68.31 | 51.87 | 87.45 | 56.04 | 66.14 | 49.41 | 64.44 | <ins>67.93</ins> |
 | AdaptOVCD† | RCLIP | 76.97 | 62.56 | 88.63 | 68.02 | 65.61 | 48.82 | 69.45 | 62.18 |
 | **ST²DPA-CD (ours)** | RCLIP | **86.16** | **75.68** | 90.75 | 82.01 | **72.65** | **57.05** | 80.62 | 66.12 |
 
-**Note:** Bold and underlined values indicate the best and second-best results, respectively. † denotes variants re-implemented using RemoteCLIP (RCLIP). All metrics are expressed as percentages (%).
+**Note:** The best and second-best scores are marked in **bold** and <ins>underline</ins>, respectively. † denotes variants re-implemented using RemoteCLIP (RCLIP). All metrics are expressed as percentages (%).
 
 
 | Method | Base Model | **[DSIFN](https://github.com/GeoZcx/A-deeply-supervised-image-fusion-network-for-change-detection-in-remote-sensing-images/tree/master/dataset)** | | | | **[CLCD](https://github.com/liumency/CropLand-CD)** | | | |
 |:------|:------|---:|---:|---:|---:|---:|---:|---:|---:|
 | | | **F1** | **IoU** | **Rec.** | **Pre.** | **F1** | **IoU** | **Rec.** | **Pre.** |
-| DCVA | / | 38.52 | 23.85 | **76.31** | 25.76 | 20.81 | 11.62 | <u>74.77</u> | 12.09 |
+| DCVA | / | 38.52 | 23.85 | **76.31** | 25.76 | 20.81 | 11.62 | <ins>74.77</ins> | 12.09 |
 | Inst-CEG | APE | 31.81 | 18.91 | 22.46 | 54.50 | 6.76 | 3.50 | 5.18 | 9.73 |
 | AnyChange | SAM | 39.19 | 24.37 | 52.25 | 31.36 | 31.96 | 19.02 | 63.63 | 21.33 |
 | UCD-SCM | FastSAM | 40.13 | 25.10 | 51.61 | 32.82 | 23.31 | 13.19 | 32.49 | 18.18 |
 | BiSAM-CD | SAM2 | 54.53 | 37.48 | 66.42 | 46.25 | 31.01 | 18.35 | **81.60** | 19.15 |
 | STU-SAMI | SAM | 43.40 | 27.71 | 69.27 | 31.60 | 37.07 | 22.75 | 63.22 | 26.22 |
 | AdaptOVCD | DGTRS-CLIP | 59.47 | 42.32 | 64.42 | 55.23 | 38.97 | 24.20 | 50.81 | 31.61 |
-| OpenDPR | APE | 46.16 | 30.00 | 67.98 | 34.94 | <u>42.91</u> | <u>27.31</u> | 61.29 | 33.01 |
-| DynamEarth (MCI) | SegEarth-OV | 54.35 | 37.32 | 44.44 | <u>69.96</u> | 23.83 | 13.52 | 19.47 | 30.70 |
+| OpenDPR | APE | 46.16 | 30.00 | 67.98 | 34.94 | <ins>42.91</ins> | <ins>27.31</ins> | 61.29 | 33.01 |
+| DynamEarth (MCI) | SegEarth-OV | 54.35 | 37.32 | 44.44 | <ins>69.96</ins> | 23.83 | 13.52 | 19.47 | 30.70 |
 | DynamEarth (IMC) | APE | 26.42 | 15.22 | 15.45 | **90.96** | 14.97 | 8.09 | 8.22 | **83.52** |
 | UCD-SCM† | RCLIP | 46.96 | 30.69 | 41.38 | 54.29 | 37.94 | 23.41 | 66.18 | 26.60 |
-| AdaptOVCD† | RCLIP | <u>59.85</u> | <u>42.71</u> | <u>71.66</u> | 51.39 | 41.14 | 25.90 | 48.00 | <u>36.00</u> |
+| AdaptOVCD† | RCLIP | <ins>59.85</ins> | <ins>42.71</ins> | <ins>71.66</ins> | 51.39 | 41.14 | 25.90 | 48.00 | <ins>36.00</ins> |
 | **ST²DPA-CD (ours)** | RCLIP | **60.31** | **43.17** | 54.10 | 68.12 | **44.97** | **29.00** | 60.83 | 35.66 |
 
-**Note:** Bold and underlined values indicate the best and second-best results, respectively. † denotes variants re-implemented using RemoteCLIP (RCLIP). All metrics are expressed as percentages (%).
+**Note:** The best and second-best scores are marked in **bold** and <ins>underline</ins>, respectively. † denotes variants re-implemented using RemoteCLIP (RCLIP). All metrics are expressed as percentages (%).
 
 ## Dependencies and Installation
 
