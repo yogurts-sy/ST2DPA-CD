@@ -256,7 +256,7 @@ def extract_features(image: np.ndarray, model, processor, model_config: dict, de
 
     return features
 
-def KTCD(change_proposals, **kwargs):
+def IST(change_proposals, **kwargs):
 
     dm_cons_cosdis = kwargs.get('dm_cons_cosdis')
     dst_v1 = kwargs.get('dst_v1')
@@ -393,8 +393,8 @@ def LMD(change_proposals, **kwargs):
 def instance_threshold_for_proposal(change_proposals, **kwargs):
     change_head = kwargs.get('change_head')
     
-    if change_head == 'KTCD':
-        bcd_mask, thres_mask = KTCD(change_proposals, **kwargs)
+    if change_head == 'IST':
+        bcd_mask, thres_mask = IST(change_proposals, **kwargs)
 
     elif change_head == 'PWD':
         bcd_mask, thres_mask = PWD(change_proposals, **kwargs)
@@ -613,7 +613,7 @@ def extract_change_proposals(target_mask, everything_results, AB, **kwargs):
 
     return real_change_proposals
 
-def unsupervised_change_detection(identifier_model, img1_path, img2_path, label_path, evaluator_test, **kwargs):
+def ktcd(identifier_model, img1_path, img2_path, label_path, evaluator_test, **kwargs):
 
     DATASET = kwargs.get('dataset')
     SAVE_DIR = kwargs.get('save_path')
@@ -638,16 +638,7 @@ def unsupervised_change_detection(identifier_model, img1_path, img2_path, label_
     target_mask1 = np.zeros((img1.shape[0], img1.shape[1]))
     target_mask2 = np.zeros((img2.shape[0], img2.shape[1]))
 
-    if DATASET == 'SECOND':
-        
-        class_id = SECOND_CLASS_MAPPING[SECOND_CLASSNAME_MAPPING[TARGET_CLASSES[0]]]
-        mask1 = np.array(Image.open(label_path), dtype=np.uint8)
-        mask2 = np.array(Image.open(label_path.replace("T1", "T2")), dtype=np.uint8)
-        mask  = ((mask1 == class_id) | (mask2 == class_id)).astype(np.uint8) * 255
-    
-    else:
-
-        mask = np.array(Image.open(label_path).convert('L'), dtype=np.uint8)
+    mask = np.array(Image.open(label_path).convert('L'), dtype=np.uint8)
         
     # import time
     # start_time = time.time()
@@ -758,7 +749,7 @@ if __name__ == '__main__':
     parser.add_argument('--target_classes', type=int, nargs='+', default=[1], help='the list of target classes')
     parser.add_argument('--thres_base', type=int, default=60, help='change vector threshold')
     parser.add_argument('--test_dataset', type=str, default='WHU-CD', help='evaluation dataset: WHU-CD, LEVIR-CD, DSIFN, CLCD')
-    parser.add_argument('--change_head', type=str, default='KTCD', help='change head: KTCD, PWD, SD, LM, LMD')
+    parser.add_argument('--change_head', type=str, default='IST', help='change head: IST, PWD, SD, LM, LMD')
     parser.add_argument('--sam_root_path', type=str, default='./pretrained/sam_vit_h_4b8939.pth', help='segment anything model root path')
     parser.add_argument('--dataset_root_path', type=str, default='./UCD_Benchmark/WHU-CD-1024/test/', help='evaluation dataset root path')
     parser.add_argument("--config-file", default='./configs/TABA_WHU_ViT_B.yaml', metavar="FILE", help="path to config file",)
@@ -862,9 +853,6 @@ if __name__ == '__main__':
 
     for img_name in tqdm(img_names, desc="Processing", unit="iteration"):
 
-        # if img_name != '0022.png':
-        #     continue
-
         img1_path = os.path.join(INPUT_DIR, T1_NAME, img_name)
         img2_path = os.path.join(INPUT_DIR, T2_NAME, img_name)
 
@@ -873,7 +861,7 @@ if __name__ == '__main__':
         else:
             label_path = os.path.join(INPUT_DIR, MASK_NAME, img_name)
 
-        unsupervised_change_detection(model, img1_path, img2_path, label_path, evaluator_test, dataset=DATASET, save_path=SAVE_DIR, 
+        ktcd(model, img1_path, img2_path, label_path, evaluator_test, dataset=DATASET, save_path=SAVE_DIR, 
                                         target_classes=TARGET_CLASSES, thres_base=THRES_BASE, from_A_to_B=FROM_A_TO_B, from_B_to_A=FROM_B_TO_A, 
                                         logger=logger, change_head=CHANGE_HEAD, img_name=img_name, clsn=CLSN)
 
