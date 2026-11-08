@@ -36,7 +36,7 @@
 > Overview of the proposed IST for change detection. Foreground change proposals are identified using category-agnostic masks and the adapted CLIP, while bi-temporal feature dissimilarities are computed from the mask generator features. An instance-specific threshold is then estimated for each proposal by jointly considering semantic similarity and feature dissimilarity. Finally, proposals exceeding their adaptive thresholds are merged to generate the binary change map.
 
 ## Main Results
-### Unsupervised Binary Change Detection
+### Annotation-Free Change Detection
 
 | Method | Base Model | **[WHU](http://gpcv.whu.edu.cn/data/building_dataset.html)** | | | | **[LEVIR](https://justchenhao.github.io/LEVIR/)** | | | |
 |:------|:------|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -84,8 +84,8 @@
 Please follow the version information provided in `requirements.txt`. The installation procedure for the key dependencies is as follows:
 ```bash
 # 1. Python version and Conda environment setup
-conda create -n UDA-CD python=3.8.20
-conda activate UDA-CD
+conda create -n ST2DPA-CD python=3.8.20
+conda activate ST2DPA-CD
 
 # 2. Install torch, torchvision, torchaudio
 pip install torch==2.3.0 torchvision==0.18.0 torchaudio==2.3.0 --index-url https://download.pytorch.org/whl/cu118
@@ -95,7 +95,7 @@ pip install -U openmim
 mim install mmcv==2.2.0
 
 # 4. Comment out the mmcv version constraint in mmseg:
-# (in /root/miniconda3/envs/UDA-CD/lib/python3.8/site-packages/mmseg/init.py, lines 61–63)
+# (in /root/miniconda3/envs/ST2DPA-CD/lib/python3.8/site-packages/mmseg/init.py, lines 61–63)
 
 # assert (mmcv_min_version <= mmcv_version < mmcv_max_version), \\
 #     f'MMCV=={mmcv.__version__} is used but incompatible. ' \\
@@ -115,10 +115,7 @@ Please download the pretrained weights for SAM, RemoteCLIP and DINO. Please plac
 
 1. Download `sam_vit_h_4b8939.pth` checkpoints from [SAM's repo](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth) and put it into `./pretrained/`.
 2. Download `RemoteCLIP-ViT-L-14.pt` checkpoints from [HF](https://huggingface.co/chendelong/RemoteCLIP/blob/main/RemoteCLIP-ViT-L-14.pt) and put it into `./pretrained/`.
-3. Download `RemoteCLIP-ViT-B-32.pt` checkpoints from [HF](https://huggingface.co/chendelong/RemoteCLIP/resolve/main/RemoteCLIP-ViT-B-32.pt) and put it into `./pretrained/`.
-4. Download `ViT-B-16.pt` checkpoints from [CLIP's repo](https://openaipublic.azureedge.net/clip/models/5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f/ViT-B-16.pt) and put it into `./pretrained/`.
-5. Download `ViT-B-32.pt` checkpoints from [CLIP's repo](https://openaipublic.azureedge.net/clip/models/40d365715913c9da98579312b702a82c18be219cc2a73407c4526f58eba950af/ViT-B-32.pt) and put it into `./pretrained/`.
-6. Download `dino_vitbase8_pretrain.pth` checkpoints from [DINO's repo](https://dl.fbaipublicfiles.com/dino/dino_vitbase8_pretrain/dino_vitbase8_pretrain.pth) and put it into `./pretrained/`.
+3. Download `dino_vitbase8_pretrain.pth` checkpoints from [DINO's repo](https://dl.fbaipublicfiles.com/dino/dino_vitbase8_pretrain/dino_vitbase8_pretrain.pth) and put it into `./pretrained/`.
 
 We include the following dataset configurations in this repo: 
 1) `Building Change Detection`: [WHU-CD](http://gpcv.whu.edu.cn/data/building_dataset.html), [LEVIR-CD](https://justchenhao.github.io/LEVIR/)
