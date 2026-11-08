@@ -27,48 +27,57 @@
 ## Abstract
 > Remote sensing change detection (CD) is a crucial task for analyzing the impacts of ecological changes, yet existing methods often rely on costly annotations or spatially registered training pairs. Although vision foundation models (VFMs) have enabled annotation-free CD, distribution gaps between pre-training and target domains remain a significant challenge. To address this issue, we propose ST$^2$DPA-CD, a single-temporal target-domain prototype adaptation framework that mines semantic knowledge from unlabeled single-temporal images and transfers it to bi-temporal CD. Specifically, bi-granularity domain prototype retrieval (BDPR) integrates global and dense visual representations to construct reliable target-domain category prototypes. Transformer attention block adaptation (TABA) then leverages these prototypes to efficiently adapt VFM through parameter-efficient fine-tuning. Further, an instance-specific threshold (IST) strategy transfers the adapted semantic knowledge to CD through adaptive change estimation, suppressing spurious detections. Extensive experiments on four benchmark datasets demonstrate that ST$^2$DPA-CD achieves state-of-the-art performance in annotation-free CD. Additional experiments further validate its effectiveness in semi-supervised learning and cross-domain generalization.
 
-<img src="assets/BDPR2.jpg" width="100%"/>
+<img src="assets/BDPR.jpg" width="100%"/>
 
-> Overall framework for target-domain prototype collection and CLIP adaptation. First, high-quality target-domain prototypes are retrieved through bi-granularity semantic classification. Subsequently, the matching costs between CLIP dense visual tokens and semantic categories are constrained to align with the retrieved target-domain prototypes, enabling CLIP to capture target-domain semantics.
+> Overall framework for target-domain prototype collection and CLIP adaptation. First, high-quality target-domain prototypes are retrieved through bi-granularity semantic classification. Subsequently, the correlation maps between CLIP dense visual tokens and semantic categories are constrained to align with the retrieved target-domain prototypes, enabling CLIP to capture target-domain semantics.
 
 <img src="assets/KTCD.jpg" width="100%"/>
 
-> Overall framework for target-domain prototype collection and CLIP adaptation. First, high-quality target-domain prototypes are retrieved through bi-granularity semantic classification. Subsequently, the matching costs between CLIP dense visual tokens and semantic categories are constrained to align with the retrieved target-domain prototypes, enabling CLIP to capture target-domain semantics.
+> Overview of the proposed IST for change detection. Foreground change proposals are identified using category-agnostic masks and the adapted CLIP, while bi-temporal feature dissimilarities are computed from the mask generator features. An instance-specific threshold is then estimated for each proposal by jointly considering semantic similarity and feature dissimilarity. Finally, proposals exceeding their adaptive thresholds are merged to generate the binary change map.
 
 ## Main Results
 ### Unsupervised Binary Change Detection
 
-| Method | **[WHU](http://gpcv.whu.edu.cn/data/building_dataset.html)** |  |  |  | **[LEVIR](https://justchenhao.github.io/LEVIR/)** |  |  |  |
-|:------|---:|---:|---:|---:|---:|---:|---:|---:|
-| | **F1** | **IoU** | **Rec** | **Pre** | **F1** | **IoU** | **Rec** | **Pre** |
-| PCA_KM | 14.33 | 7.72 | 55.05 | 8.24 | 9.96 | 5.24 | 39.50 | 5.70 |
-| CVA | 7.17 | 3.72 | 62.03 | 3.81 | 9.27 | 4.86 | 61.27 | 5.01 |
-| IRMAD | 16.32 | 8.89 | 21.33 | 13.22 | 14.21 | 7.65 | 18.22 | 11.65 |
-| DCVA | 20.55 | 11.45 | 59.96 | 12.40 | 13.85 | 7.44 | 75.50 | 7.63 |
-| Inst-CEG | 62.54 | 45.49 | 73.62 | 54.35 | 63.29 | 46.30 | 81.96 | 51.55 |
-| AnyChange | 28.13 | 16.37 | **96.16** | 16.48 | 32.68 | 19.53 | 81.06 | 20.46 |
-| UCD-SCM | 32.13 | 19.14 | 76.81 | 20.31 | 32.36 | 19.30 | 50.21 | 23.87 |
-| BiSAM-CD | 41.26 | 25.99 | *94.88* | 26.36 | 53.79 | 36.79 | **93.35** | 37.78 |
-| STU-SAMI | 33.15 | 19.87 | 69.94 | 21.72 | 33.50 | 20.12 | 64.19 | 22.66 |
-| DynEarth (MCI) | 57.35 | 40.20 | 63.43 | 52.33 | 46.43 | 30.23 | 73.33 | 33.97 |
-| DynEarth (IMC) | *75.85* | *61.09* | 73.96 | *77.84* | *69.70* | *53.50* | 78.09 | *62.94* |
-| **UDA-CD (ours)** | **86.16** | **75.68** | 90.75 | **82.01** | **72.65** | **57.05** | 80.62 | **66.12** |
+| Method | Base Model | **[WHU](http://gpcv.whu.edu.cn/data/building_dataset.html)** | | | | **[LEVIR](https://justchenhao.github.io/LEVIR/)** | | | |
+|:------|:------|---:|---:|---:|---:|---:|---:|---:|---:|
+| | | **F1** | **IoU** | **Rec.** | **Pre.** | **F1** | **IoU** | **Rec.** | **Pre.** |
+| DCVA | / | 20.55 | 11.45 | 59.96 | 12.40 | 13.85 | 7.44 | 75.50 | 7.63 |
+| Inst-CEG | APE | 62.54 | 45.49 | 73.62 | 54.35 | 63.29 | 46.30 | <u>81.96</u> | 51.55 |
+| AnyChange | SAM | 28.13 | 16.37 | **96.16** | 16.48 | 32.68 | 19.53 | 81.06 | 20.46 |
+| UCD-SCM | FastSAM | 32.13 | 19.14 | 76.81 | 20.31 | 32.36 | 19.30 | 50.21 | 23.87 |
+| BiSAM-CD | SAM2 | 41.26 | 25.99 | <u>94.88</u> | 26.36 | 53.79 | 36.79 | **93.35** | 37.78 |
+| STU-SAMI | SAM | 33.15 | 19.87 | 69.94 | 21.72 | 33.50 | 20.12 | 64.19 | 22.66 |
+| AdaptOVCD | DGTRS-CLIP | 76.53 | 61.99 | 72.85 | 80.60 | 68.00 | 51.52 | 74.10 | 62.83 |
+| OpenDPR | APE | 79.15 | 65.50 | 75.41 | <u>83.28</u> | 61.90 | 44.82 | 74.74 | 52.83 |
+| UniVCD (SAM2) | SAM2 | 76.50 | 61.90 | 84.10 | 70.20 | 70.70 | 54.70 | 77.90 | 64.70 |
+| UniVCD (SAM3) | SAM3 | <u>79.50</u> | <u>66.00</u> | 73.30 | **86.80** | <u>72.30</u> | <u>56.70</u> | 65.10 | **81.40** |
+| DynamEarth (MCI) | SegEarth-OV | 57.35 | 40.20 | 63.43 | 52.33 | 46.43 | 30.23 | 73.33 | 33.97 |
+| DynamEarth (IMC) | APE | 75.85 | 61.09 | 73.96 | 77.84 | 69.70 | 53.50 | 78.09 | 62.94 |
+| UCD-SCM† | RCLIP | 68.31 | 51.87 | 87.45 | 56.04 | 66.14 | 49.41 | 64.44 | <u>67.93</u> |
+| AdaptOVCD† | RCLIP | 76.97 | 62.56 | 88.63 | 68.02 | 65.61 | 48.82 | 69.45 | 62.18 |
+| **ST²DPA-CD (ours)** | RCLIP | **86.16** | **75.68** | 90.75 | 82.01 | **72.65** | **57.05** | 80.62 | 66.12 |
 
-| Method | **[DSIFN](https://github.com/GeoZcx/A-deeply-supervised-image-fusion-network-for-change-detection-in-remote-sensing-images/tree/master/dataset)** |  |  |  | **[CLCD](https://github.com/liumency/CropLand-CD)** |  |  |  |
-|:------|---:|---:|---:|---:|---:|---:|---:|---:|
-| | **F1** | **IoU** | **Rec** | **Pre** | **F1** | **IoU** | **Rec** | **Pre** |
-| PCA_KM | 35.48 | 21.57 | 45.35 | 29.14 | 18.42 | 10.14 | 40.76 | 11.90 |
-| CVA | 27.88 | 16.20 | 66.29 | 17.65 | 13.39 | 7.17 | 60.42 | 7.53 |
-| IRMAD | 16.76 | 9.15 | 10.67 | 39.09 | 27.99 | 16.27 | 28.70 | 27.32 |
-| DCVA | 38.52 | 23.85 | **76.31** | 25.76 | 20.81 | 11.62 | *74.77* | 12.09 |
-| Inst-CEG | 31.81 | 18.91 | 22.46 | 54.50 | 6.76 | 3.50 | 5.18 | 9.73 |
-| AnyChange | 39.19 | 24.37 | 52.25 | 31.36 | 31.96 | 19.02 | 63.63 | 21.33 |
-| UCD-SCM | 40.13 | 25.10 | 51.61 | 32.82 | 23.31 | 13.19 | 32.49 | 18.18 |
-| BiSAM-CD | *54.53* | *37.48* | 66.42 | 46.25 | 31.01 | 18.35 | **81.60** | 19.15 |
-| STU-SAMI | 43.40 | 27.71 | *69.27* | 31.60 | *37.07* | *22.75* | 63.22 | 26.22 |
-| DynEarth (MCI) | 54.35 | 37.32 | 44.44 | *69.96* | 23.83 | 13.52 | 19.47 | 30.70 |
-| DynEarth (IMC) | 26.42 | 15.22 | 15.45 | **90.96** | 14.97 | 8.09 | 8.22 | **83.52** |
-| **UDA-CD (ours)** | **60.31** | **43.17** | 54.10 | 68.12 | **44.97** | **29.00** | 60.83 | *35.66* |
+**Note:** Bold and underlined values indicate the best and second-best results, respectively. † denotes variants re-implemented using RemoteCLIP (RCLIP). All metrics are expressed as percentages (%).
+
+
+| Method | Base Model | **[DSIFN](https://github.com/GeoZcx/A-deeply-supervised-image-fusion-network-for-change-detection-in-remote-sensing-images/tree/master/dataset)** | | | | **[CLCD](https://github.com/liumency/CropLand-CD)** | | | |
+|:------|:------|---:|---:|---:|---:|---:|---:|---:|---:|
+| | | **F1** | **IoU** | **Rec.** | **Pre.** | **F1** | **IoU** | **Rec.** | **Pre.** |
+| DCVA | / | 38.52 | 23.85 | **76.31** | 25.76 | 20.81 | 11.62 | <u>74.77</u> | 12.09 |
+| Inst-CEG | APE | 31.81 | 18.91 | 22.46 | 54.50 | 6.76 | 3.50 | 5.18 | 9.73 |
+| AnyChange | SAM | 39.19 | 24.37 | 52.25 | 31.36 | 31.96 | 19.02 | 63.63 | 21.33 |
+| UCD-SCM | FastSAM | 40.13 | 25.10 | 51.61 | 32.82 | 23.31 | 13.19 | 32.49 | 18.18 |
+| BiSAM-CD | SAM2 | 54.53 | 37.48 | 66.42 | 46.25 | 31.01 | 18.35 | **81.60** | 19.15 |
+| STU-SAMI | SAM | 43.40 | 27.71 | 69.27 | 31.60 | 37.07 | 22.75 | 63.22 | 26.22 |
+| AdaptOVCD | DGTRS-CLIP | 59.47 | 42.32 | 64.42 | 55.23 | 38.97 | 24.20 | 50.81 | 31.61 |
+| OpenDPR | APE | 46.16 | 30.00 | 67.98 | 34.94 | <u>42.91</u> | <u>27.31</u> | 61.29 | 33.01 |
+| DynamEarth (MCI) | SegEarth-OV | 54.35 | 37.32 | 44.44 | <u>69.96</u> | 23.83 | 13.52 | 19.47 | 30.70 |
+| DynamEarth (IMC) | APE | 26.42 | 15.22 | 15.45 | **90.96** | 14.97 | 8.09 | 8.22 | **83.52** |
+| UCD-SCM† | RCLIP | 46.96 | 30.69 | 41.38 | 54.29 | 37.94 | 23.41 | 66.18 | 26.60 |
+| AdaptOVCD† | RCLIP | <u>59.85</u> | <u>42.71</u> | <u>71.66</u> | 51.39 | 41.14 | 25.90 | 48.00 | <u>36.00</u> |
+| **ST²DPA-CD (ours)** | RCLIP | **60.31** | **43.17** | 54.10 | 68.12 | **44.97** | **29.00** | 60.83 | 35.66 |
+
+**Note:** Bold and underlined values indicate the best and second-best results, respectively. † denotes variants re-implemented using RemoteCLIP (RCLIP). All metrics are expressed as percentages (%).
 
 ## Dependencies and Installation
 
