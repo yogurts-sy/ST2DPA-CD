@@ -27,6 +27,10 @@
 ## Abstract
 > Remote sensing change detection (CD) is a crucial task for analyzing the impacts of ecological changes, yet existing methods often rely on costly annotations or spatially registered training pairs. Although vision foundation models (VFMs) have enabled annotation-free CD, distribution gaps between pre-training and target domains remain a significant challenge. To address this issue, we propose ST$^2$DPA-CD, a single-temporal target-domain prototype adaptation framework that mines semantic knowledge from unlabeled single-temporal images and transfers it to bi-temporal CD. Specifically, bi-granularity domain prototype retrieval (BDPR) integrates global and dense visual representations to construct reliable target-domain category prototypes. Transformer attention block adaptation (TABA) then leverages these prototypes to efficiently adapt VFM through parameter-efficient fine-tuning. Further, an instance-specific threshold (IST) strategy transfers the adapted semantic knowledge to CD through adaptive change estimation, suppressing spurious detections. Extensive experiments on four benchmark datasets demonstrate that ST$^2$DPA-CD achieves state-of-the-art performance in annotation-free CD. Additional experiments further validate its effectiveness in semi-supervised learning and cross-domain generalization.
 
+<img src="assets/Overview.jpg" width="100%"/>
+
+> Overview of the proposed ST$^2$DPA-CD framework. BDPR extracts category prototypes from unlabeled single-temporal images to guide target-domain adaptation through TABA. During inference, IST transfers the adapted semantic knowledge to bi-temporal change detection to generate the final change map.
+
 <img src="assets/BDPR.jpg" width="100%"/>
 
 > Overall framework for target-domain prototype collection and CLIP adaptation. First, high-quality target-domain prototypes are retrieved through bi-granularity semantic classification. Subsequently, the correlation maps between CLIP dense visual tokens and semantic categories are constrained to align with the retrieved target-domain prototypes, enabling CLIP to capture target-domain semantics.
